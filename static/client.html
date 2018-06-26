@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Client script -->
+    <script src="static/client.js"></script>
+
+    <!-- Chart.js scripts -->
+    <script src="static/js/chart.bundle.js"></script>
+    <script src="static/js/chart.bundle.min.js"></script>
+
+    <title>Twidder</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="static/css/bootstrap-reboot.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="static/css/style.css" rel="stylesheet">
+
+    <!-- Welcome View Script -->
+    <script type="text/view" id="welcomeView">
+        <div class="container" id="welcomeWall">
+            <div class="row justify-content-around align-items-center">
+                <div class="col-sm">
+                    <img src="static/wimage.png" class="img-fluid rounded">
+                </div>
+
+                <div class="col-sm mx-auto d-block">
+                    <div class="row">
+
+                        <div class="col rounded borderForm">
+                            <form class="form-fillout" onsubmit="return signIn(this)">
+
+                                <div class="form-label-group">
+                                    <input type="email" id="inputEmail" name="inputEmail" class="form-control" required>
+                                    <label for="inputEmail">Email Address</label>
+                                </div>
+
+                                <div class="form-label-group mb-1">
+                                    <input type="password" id="inputPassword" name="inputPassword" class="form-control" required>
+                                    <label for="inputPassword">Password</label>
+                                </div>
+
+                                <div class="formFeedback mb-2" id="signInFeedback"></div>
+
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                            </form>
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col rounded borderForm">
+                            <form class="form-fillout" onsubmit="return signUp(this)">
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-label-group">
+                                            <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                            <label for="firstName">First Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-label-group">
+                                            <input type="text" id="familyName" name="familyName" class="form-control" required>
+                                            <label for="familyName">Family Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-label-group">
+                                            <input type="text" id="city" name="city" class="form-control" required>
+                                            <label for="city">City</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-label-group">
+                                            <input type="text" id="country" name="country" class="form-control" required>
+                                            <label for="country">Country</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-label-group">
+                                            <select id="gender" name="gender" class="form-control form-control-lg" required>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-label-group">
+                                            <input type="email" id="signupEmail" name="signupEmail"
+                                            class="form-control" required>
+                                            <label for="signupEmail">Email Address</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-label-group mb-1">
+                                            <input type="password" id="signupPassword" name="signupPassword"
+                                            class="form-control" required>
+                                            <label for="signupPassword">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-label-group mb-1">
+                                            <input type="password" id="signupRepeatPassword" name="signupRepeatPassword"
+                                            class="form-control" required>
+                                            <label for="signupRepeatPassword">Repeat Password</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="formFeedback mb-2" id="signUpFeedback"></div>
+
+                                <button class="btn btn-lg btn-success btn-block" type="submit">Sign up</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </script>
+
+    <!-- Profile View Script -->
+    <script type="text/view" id="profileView">
+        <div class="container" id="profileWall">
+
+            <nav class="mt-0 mb-0 p-0">
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item mb-3">
+                        <a class="nav-link active nav-left" onclick="profileView()">Home</a>
+                    </li>
+                    <li class="nav-item mb-3 ">
+                        <a class="nav-link nav-middle" onclick="searchView()">Browse</a>
+                    </li>
+                    <li class="nav-item dropdown mb-3">
+                        <a class="nav-link nav-right dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false">Account</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="accountView()">Edit Profile</a>
+                            <a class="dropdown-item" onclick="signOut()">Sign Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="row justify-content-around align-items-center">
+                <div class="col-sm-5 mb-3">
+                    <div class="card">
+                        <img class="card-img-top img-fluid mx-auto d-block" id="profilePicture" onerror="this.src='get_media/users/default-user.png'">
+                        <div class="card-body pt-1 pb-1">
+                            <h5 class="card-title">Personal Information</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><label>First Name:</label><span id="infoFirstName"></span></li>
+                            <li class="list-group-item"><label>Family Name:</label><span id="infoFamilyName"></span></li>
+                            <li class="list-group-item"><label>Gender:</label><span id="infoGender"></span></li>
+                            <li class="list-group-item"><label>City:</label><span id="infoCity"></span></li>
+                            <li class="list-group-item"><label>Country:</label><span id="infoCountry"></span></li>
+                            <li class="list-group-item"><label>Email:</label><span id="infoEmail"></span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-7 mb-3">
+                    <form class="mb-3" onsubmit="return postNewMessage(this, 'home')">
+                        <div class="form-group mb-0">
+                            <textarea class="form-control reloadWall" id="postMessage" name="postMessage" rows="10"
+                            required ondrop="drop(event)" ondragover="allowDrop(event)"></textarea>
+                        </div>
+                    <button type="submit" class="btn btn-primary btn-block postMessageBtn">Post message</button>
+                    </form>
+                    <form onsubmit="return postNewVideoMessage(this, 'home')">
+                        <div class="form-group mb-0 custom-file">
+                            <input type="file" class="custom-file-input" id="videoFile" name="videoFile" required>
+                            <label class="custom-file-label reloadWall" for="videoFile">Choose file...</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block postMessageBtn">Post video</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row justify-content-around align-items-center mb-3">
+                <div class="col-sm-7 mb-1">
+                    <button type="submit" onclick="reloadWall('home')" class="btn btn-secondary btn-block reloadWall">Reload Wall</button>
+                    <div class="messageWall borderForm rounded-bottom" id="homeMessageWall"></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="card">
+                        <canvas id='myChart' width="200px" height="200px"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </script>
+
+    <!-- Search View Script -->
+    <script type="text/view" id="searchView">
+        <div class="container" id="profileWall">
+
+            <nav class="mt-0 mb-0 p-0">
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item mb-3">
+                        <a class="nav-link nav-left" onclick="profileView()">Home</a>
+                    </li>
+                    <li class="nav-item mb-3 ">
+                        <a class="nav-link active nav-middle" onclick="searchView()">Browse</a>
+                    </li>
+                    <li class="nav-item dropdown mb-3">
+                        <a class="nav-link nav-right dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false">Account</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="accountView()">Edit Profile</a>
+                            <a class="dropdown-item" onclick="signOut()">Sign Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="find-user-form">
+                <form onsubmit="return findUser(this)">
+                    <div class="input-group">
+                        <label class="sr-only" for="searchUser">Search User</label>
+                        <input type="text" class="form-control mb-2 rounded-left mr-0" id="searchUser"
+                               name="searchUser" placeholder="Search User">
+                        <button type="submit" class="btn btn-outline-success mb-2 ml-0 find-btn">Find</button>
+                    </div>
+                    <div class="formFeedback" id="searchUserFeedback"></div>
+                </form>
+            </div>
+            <div id="userFound">
+                <div class="row justify-content-around align-items-center">
+                    <div class="col-sm-5 mb-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid mx-auto d-block" id="profilePicture" onerror="this.src='get_media/users/default-user.png'">
+                            <div class="card-body pt-1 pb-1">
+                                <h5 class="card-title">Personal Information</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><label>First Name:</label><span id="infoFirstName"></span></li>
+                                <li class="list-group-item"><label>Family Name:</label><span id="infoFamilyName"></span></li>
+                                <li class="list-group-item"><label>Gender:</label><span id="infoGender"></span></li>
+                                <li class="list-group-item"><label>City:</label><span id="infoCity"></span></li>
+                                <li class="list-group-item"><label>Country:</label><span id="infoCountry"></span></li>
+                                <li class="list-group-item"><label>Email:</label><span id="infoEmail"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-7 mb-3">
+                        <form class="mb-3" onsubmit="return postNewMessage(this, 'user')">
+                            <div class="form-group mb-0">
+                                <textarea class="form-control reloadWall" id="postMessage" name="postMessage" rows="10"
+                                required ondrop="drop(event)" ondragover="allowDrop(event)"></textarea>
+                            </div>
+                        <button type="submit" class="btn btn-primary btn-block postMessageBtn">Post message</button>
+                        </form>
+                        <form onsubmit="return postNewVideoMessage(this, 'user')">
+                            <div class="form-group mb-0 custom-file">
+                                <input type="file" class="custom-file-input" id="videoFile" name="videoFile" required>
+                                <label class="custom-file-label reloadWall" for="videoFile">Choose file...</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block postMessageBtn">Post video</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row justify-content-around align-items-center mb-3">
+                    <div class="col-sm">
+                        <button type="submit" onclick="reloadWall('user')" class="btn btn-secondary btn-block reloadWall">Reload Wall</button>
+                        <div class="messageWall borderForm rounded-bottom" id="userMessageWall"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </script>
+
+    <!-- Account View Script -->
+    <script type="text/view" id="accountView">
+        <div class="container" id="profileWall">
+
+            <nav class="mt-0 mb-0 p-0">
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item mb-3">
+                        <a class="nav-link nav-left" onclick="profileView()">Home</a>
+                    </li>
+                    <li class="nav-item mb-3 ">
+                        <a class="nav-link nav-middle" onclick="searchView()">Browse</a>
+                    </li>
+                    <li class="nav-item dropdown mb-3">
+                        <a class="nav-link nav-right active dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Account</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="accountView()">Edit Profile</a>
+                            <a class="dropdown-item" onclick="signOut()">Sign Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="row justify-content-around align-items-center">
+                <div class="col-sm-5 mb-3">
+                    <div class="card">
+                        <img class="card-img-top img-fluid mx-auto d-block" id="profilePicture" onerror="this.src='get_media/users/default-user.png'">
+                        <div class="card-body pt-1 pb-1">
+                            <h5 class="card-title">Profile Picture</h5>
+                        </div>
+                        <form onsubmit="return changeProfilePicture(this)">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="profilePicFile" name="profilePicFile" required>
+                                <label class="custom-file-label fileButton" for="profilePicFile">Choose file...</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block postMessageBtn">Change Picture</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-sm-7 mb-3">
+                    <div class="card">
+                        <form class="form-fillout" id="changePwdForm" onsubmit="return changePassword(this)">
+                            <div class="form-label-group">
+                                <input type="password" id="oldPassword" name="oldPassword" class="form-control" required>
+                                <label for="oldPassword">Old Password</label>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="password" id="newPassword" name="newPassword" class="form-control" required>
+                                <label for="newPassword">New Password</label>
+                            </div>
+
+                            <div class="form-label-group mb-1">
+                                <input type="password" id="newPasswordRepeat" name="newPasswordRepeat" class="form-control" required>
+                                <label for="newPasswordRepeat">Repeat New Password</label>
+                            </div>
+
+                            <div class="formFeedback mb-2" id="passwordChangeFeedback"></div>
+
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </script>
+
+</head>
+
+<body>
+<div id="currentView"></div>
+
+<!-- Additional scripts for drop down menus -->
+<script src="static/js/jquery-3.3.1.min.js"></script>
+<script src="static/js/bootstrap.bundle.js"></script>
+
+</body>
+</html>
